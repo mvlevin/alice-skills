@@ -56,6 +56,10 @@ def Stop():
             break
 
 
+def CloseSession():
+    driver.quit()
+
+
 class S(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
@@ -90,6 +94,8 @@ class S(BaseHTTPRequestHandler):
             elif self.args["action"] == "stop":
                 th = threading.Thread(target=Stop)
                 th.start()
+            elif self.args["action"] == "quit":
+                CloseSession()
         self._set_headers()
         self.wfile.write(self._html("POST!"))
 
